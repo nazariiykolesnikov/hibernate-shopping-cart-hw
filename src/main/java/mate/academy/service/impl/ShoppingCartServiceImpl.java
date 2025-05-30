@@ -1,9 +1,10 @@
 package mate.academy.service.impl;
 
 import java.util.Collections;
+
+import jakarta.persistence.EntityNotFoundException;
 import mate.academy.dao.ShoppingCartDao;
 import mate.academy.dao.TicketDao;
-import mate.academy.exception.DataProcessingException;
 import mate.academy.lib.Inject;
 import mate.academy.lib.Service;
 import mate.academy.model.MovieSession;
@@ -18,7 +19,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private ShoppingCartDao shoppingCartDao;
     @Inject
     private TicketDao ticketDao;
-
     @Override
     public void addSession(MovieSession movieSession, User user) {
         Ticket ticket = new Ticket();
@@ -32,10 +32,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getByUser(User user) {
-        return shoppingCartDao
-                .getByUser(user)
-                .orElseThrow(() -> { throw new DataProcessingException(
-                        "Cannot find the shopping cart for the user: " + user); });
+        return shoppingCartDao.getByUser(user).orElseThrow(
+                () -> new EntityNotFoundException("Can't get the user: " + user)
+        );
     }
 
     @Override
