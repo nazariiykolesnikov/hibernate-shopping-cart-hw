@@ -9,8 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import javax.xml.transform.sax.SAXResult;
-
 @Entity
 @Table(name = "tickets")
 public class Ticket {
