@@ -20,7 +20,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.merge(shoppingCart);
+            session.save(shoppingCart);
             transaction.commit();
             return shoppingCart;
         } catch (Exception e) {
@@ -28,8 +28,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                 transaction.rollback();
             }
             throw new DataProcessingException(
-                    "Cannot save the shopping cart: "
-                            + shoppingCart, e);
+                    "Cannot save the shopping cart: " + shoppingCart, e);
         } finally {
             if (session != null) {
                 session.close();
