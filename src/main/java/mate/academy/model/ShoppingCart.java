@@ -17,7 +17,7 @@ public class ShoppingCart {
     @Id
     private Long id;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shopping_cart_id")
     private List<Ticket> tickets;
 
